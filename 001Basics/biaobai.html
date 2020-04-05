@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<style>
+    p{
+      font-size:40px;
+      color:red;
+      font-style:italic;
+      font-weight:bold;
+      font-family:"楷体";
+      text-align:center;
+      text-indent:100px;
+      text-shadow:5px 10px 2px blue;
+
+      }
+
+</style>
+<p>欢迎您的到来</p>
+<hr size="3" color="red" />
+
+<div class="box" id="box">
+
+      <img id="img" src="images/1.jpg" alt="我是图片" width="800px" height="1400px"/>
+      <br/>
+      <hr size="3" color="red" />
+      <a id="link" href="#">下一张</a>
+      <span id="sp">共100张:第1张</span>
+      <a id="link1" href="#">上一张</a>
+    </div>
+</div>
+
+<style>
+/*设置位置*/
+    .box{
+        position:absolute;
+        margin-left:60px;
+        }
+    #link{
+            font-size:40px;
+            color:rgba(250,0,0,0.5);
+            text-decoration:none;
+            font-weight:bold;
+            }
+    #link1{
+            position:relative;
+            margin-left:155px;
+            font-size:40px;
+            text-decoration:none;
+            font-weight:bold;
+            }
+    #sp{
+            position:relative;
+            margin-left:155px;
+            font-size:40px;
+            text-decoration:none;
+            font-weight:bold;
+            }
+
+</style>
+<script>
+    //一、切换下一张图片
+    //1.获取超链接
+    var link=document.getElementById("link");
+    var i=1;
+    //给超链接注册点击事件
+    link.onclick=function(){
+                            var next=document.getElementById("img");//获取图片Id
+                            i+=1;
+                            next.src="images/"+i+".jpg";//重新给src赋值
+                            var dc=document.getElementById("sp");
+                                dc.innerHTML="共100张:第"+i+"张";
+
+                             if(i===99){
+                                   i=1;
+                                   }
+                              console.info("共383张图片:"+
+                                            "第"+i+"图片");
+                          return false;
+                          }
+
+    //二、切换上一张图片
+    //1.获取超链接
+    var link1=document.getElementById("link1");
+    //给超链接注册点击事件
+    link1.onclick=function(){
+                            var next=document.getElementById("img");//获取图片Id
+                            i-=1;
+                            var dc=document.getElementById("sp");
+                                dc.innerHTML="共100张:第"+i+"张";
+                            next.src="images/"+i+".jpg";//重新给src赋值
+                             if(i<=0){
+                                   i=99;
+                                   }
+                              console.info("共张图片:"+
+                                            "第"+i+"图片");
+                          return false;
+                          }
+</script>
+</body>
+</html>
+
+

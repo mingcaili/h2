@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>北京时间</title>
+</head>
+<body>
+    <div id="dv">
+        <div class="time">
+            <br/>
+            <br/>
+            <span>北京时间</span>
+            <br/>
+            <span id="h">00</span>
+            <span>:</span>
+            <span id="m">00</span>
+            <span>:</span>
+            <span id="s">00</span>
+        </div>
+         <canvas id="cv" width="1000" height="1600"></canvas>
+         <audio id="dd" src="bgm.mp3"  controls="controls" autoplay="autoplay" loop="loop">
+         </audio>
+         <audio id="spt" src="speaktime/0.m4a">
+         </audio>
+         <audio id="spt1" src="speaktime/00.m4a" >
+         </audio>
+
+
+
+        <div class="mk">
+            <p><strong><span>制作人:Lmc</span></strong><span>时间:2020年4月5日</span></p>
+
+        </div>
+    </div>
+</body>
+<style>
+    .time{
+            font-size:50px;
+            color:rgba(200,0,200,0.8);
+            text-align:center;
+            }
+
+    #dv{
+        width:100%;
+        height:2000PX;
+        background-image:url("./images/13.jpg");
+        background-size:100% 100%;
+        height；100%;
+
+        }
+
+    .mk{
+        position:absolute;
+        margin-bottom:10px;
+        margin-left:200px;
+        font-size:30px;
+        color:black;
+        }
+
+    #dd{
+        margin-left:40px;
+        margin-bottom:10px;
+        width:400px;
+        }
+</style>
+<script>
+
+    var canvas=document.getElementById("cv");//获取canvas标签
+    var ctx=canvas.getContext("2d");//得到二维画布环境
+    function clock(){//用函数封装
+    ctx.clearRect(0,0,canvas.width,canvas.height);//清空画布
+    //1钟表外圆
+    var r=300;//钟表半径
+    var x0=490,y0=350;//圆心
+    var ra=[0.8,0.9];//小时刻度和分钟刻度内圆的占比
+    var aryk=[4,2];//刻度线粗细
+    ctx.strokeStyle="black";//设置笔的颜色
+    ctx.lineWidth=6;
+    ctx.beginPath();//起笔
+    ctx.arc(x0,y0,r,0,2*Math.PI,true);
+    ctx.stroke();//结束
+
+
+
+
+
+    //2绘制小时刻度和分针刻度
+    var ma;
+    var ary=[12,60];
+    var arynum=[3,4,5,6,7,8,9,10,11,12,1,2];
+    for (ma in ary)//ma为数组的下标
+        for(var i=0;i<ary[ma];i++){
+            ctx.save();//保存当前绘制环境
+            ctx.translate(x0,y0)//重置画布原点
+            var a=2*Math.PI/ary[ma];//间隔角度
+            var na=i*a;
+            var x1=r*Math.cos(na);
+            var y1=r*Math.sin(na);//刻度线外端点
+            var x2=ra[ma]*r*Math.cos(na);
+            var y2=ra[ma]*r*Math.sin(na);//刻度线内端点
+            ctx.beginPath();
+            ctx.lineWidth=aryk[ma];
+            ctx.moveTo(x1,y1);//起点
+            ctx.lineTo(x2,y2);//结束点
+            ctx.stroke();
+            if(ary[ma]===12){
+                ctx.font="30px bold";
+                ctx.fillText(arynum[i],x1*0.85,y1*0.85);
+                ctx.textAlign="left";//水平居中
+                ctx.textBaseline="bottom"//垂直居中
+                ctx.textBaseline = 'middle'; //设置文本的垂直对齐方式
+                ctx.textAlign = 'center';//设置文本的水平对齐方式
+            }
+            ctx.restore();//恢复之前保存的状态
+        }
+
+   //获取当前时间
+     var now=new Date();
+     var hour=now.getHours();
+     var minute=now.getMinutes();
+     var second=now.getSeconds();
+
+     //绘制太极
+
+    var rout=r*0.7;
+    var at=-second*6;
+    var tx=rout/2*Math.cos(at);
+    var ty=rout/2*Math.sin(at);
+    //1.下外半部分
+     ctx.save();//保存当前绘制环境
+     ctx.translate(x0,y0)//重置画布原点
+     ctx.beginPath();
+     ctx.arc(0,0,rout,at,Math.PI+at);//true表示逆时针
+     ctx.fillStyle="black";
+     ctx.fill();
+     ctx.stroke();//结束
+     ctx.restore();//恢复之前保存的状态
+     //2.上外半部分
+     ctx.save();//保存当前绘制环境
+     ctx.translate(x0,y0)//重置画布原点
+     ctx.beginPath();
+     ctx.strokeStyle="white";
+     ctx.arc(0,0,rout,Math.PI+at,2*Math.PI+at);//true表示逆时针
+     ctx.fillStyle="white";
+     ctx.fill();
+     ctx.stroke();//结束
+     ctx.restore();//恢复之前保存的状态
+     //3左中圆
+     ctx.save();//保存当前绘制环境
+     ctx.translate(x0,y0)//重置画布原点
+     //ctx.moveTo(0,0);
+     ctx.beginPath();
+     ctx.arc(-tx,-ty,rout/2,0,2*Math.PI);//true表示逆时针
+     ctx.fillStyle="black";
+     ctx.fill();
+     ctx.stroke();//结束
+     ctx.restore();//恢复之前保存的状态
+     //4右中圆
+     ctx.save();//保存当前绘制环境
+     ctx.translate(x0,y0)//重置画布原点
+     //ctx.moveTo(0,0);
+     ctx.beginPath();
+     ctx.strokeStyle="white";
+     ctx.arc(tx,ty,rout/2,0,2*Math.PI,true);//true表示逆时针
+     ctx.fillStyle="white";
+     ctx.fill();
+     ctx.stroke();//结束
+     ctx.restore();//恢复之前保存的状态
+      //3左小圆
+     ctx.save();//保存当前绘制环境
+     ctx.translate(x0,y0)//重置画布原点
+     ctx.beginPath();
+     ctx.arc(-tx,-ty,rout/4,0,2*Math.PI);//true表示逆时针
+     ctx.fillStyle="white";
+     ctx.fill();
+     ctx.stroke();//结束
+     ctx.restore();//恢复之前保存的状态
+      //4右小圆
+     ctx.save();//保存当前绘制环境
+     ctx.translate(x0,y0)//重置画布原点
+     //ctx.moveTo(rout/4,0);
+     ctx.beginPath();
+     ctx.arc(tx,ty,rout/4,0,2*Math.PI);//true表示逆时针
+     ctx.fillStyle="black";
+     ctx.fill();
+     ctx.stroke();//结束
+     ctx.restore();//恢复之前保存的状态
+
+
+    //显示时间数字
+     if (hour<10)
+        document.getElementById("h").innerHTML="0"+hour;
+     else
+        document.getElementById("h").innerHTML=hour;
+     if (minute<10)
+        document.getElementById("m").innerHTML="0"+minute;
+     else
+        document.getElementById("m").innerHTML=minute;
+     if (second<10)
+         document.getElementById("s").innerHTML="0"+second;
+     else
+        document.getElementById("s").innerHTML=second;
+
+     hour=hour+minute/60+second/60/60;
+     minute=minute+second/60;
+     //9.整点报时
+     var ti;
+     var spt=document.getElementById("spt");
+     var spt1=document.getElementById("spt1");
+     for(ti=0;ti<24;ti++){
+        if (hour===ti)
+            spt1.autoplay="autoplay";
+        else if (hour===ti+9/60/60){
+            spt.src="speaktime/"+ti+".m4a";
+            spt.autoplay="autoplay";
+        }
+     }
+     //绘制指针
+     var t;
+     var aryt=[hour,minute,second];//指针对应的时间
+     var arytt=[12,60,60];//划分间隔
+     var aryw=[6,4,2];//指针粗细
+     var aryc=["yellow","red","green"];//指针颜色
+     var aryl=[150,240,260];//指针长
+     for(t in aryt){
+         ctx.save();
+         ctx.translate(x0,y0)
+         ctx.rotate(aryt[t]*2*Math.PI/arytt[t]);//指针旋转指向当前时间
+         ctx.beginPath();
+         ctx.lineWidth=aryw[t];
+         ctx.strokeStyle=aryc[t];
+         ctx.lineCap="round";//线端点形状
+         ctx.moveTo(0,10);
+         ctx.lineTo(0,-aryl[t]);
+         ctx.stroke();
+         ctx.restore();
+     }
+     //圆心绘制小圆
+     ctx.save();
+     ctx.translate(x0,y0);
+     ctx.beginPath();
+     ctx.arc(0,0,5,0,2*Math.PI,true);
+     ctx.strokeStyle="red";
+     ctx.fillStyle="white";//填充颜色
+     ctx.fill();//填充结束
+     ctx.stroke();
+     ctx.restore();
+     //绘制下摆
+       ctx.save();
+       ctx.translate(x0,y0);
+       var i1;
+       var a1=Math.PI/6;
+       var alf=3.5;
+       if (second%2===0)
+            i1=2.5;
+       else
+           i1=3.5;
+           var xs=r*Math.cos(i1*a1);
+           var ys=r*Math.sin(i1*a1);//刻度线外端点
+           var xe=alf*r*Math.cos(i1*a1);
+           var ye=alf*r*Math.sin(i1*a1);//刻度线外端点
+           ctx.beginPath();
+           ctx.lineWidth=20;
+           ctx.moveTo(xs,ys);//起点
+           ctx.lineTo(xe,ye);//结束点
+           ctx.stroke();
+           ctx.restore();
+     //下摆小圆圈
+     ctx.save();
+     ctx.translate(x0,y0);
+     ctx.beginPath();
+     ctx.lineWidth=20;
+     ctx.arc(xe,ye,50,0,2*Math.PI);
+     ctx.fillStyle="red";
+     ctx.fill();
+     ctx.stroke();
+     ctx.restore();
+     }
+
+     setInterval(clock,1000);//间隔1000毫秒执行一次
+</script>
+</html>

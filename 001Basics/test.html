@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <!--controls="no controls",控制台-->
+    <audio src="music/bgm.m4a" controls="controls"autoplay="autoplay"></audio>
+    <style>
+        body{
+        background-image:url("./images/6.jpg");
+        background-size:100% 100%;
+        height；100%;
+        }
+    html{
+            height:100%;
+            }
+     @keyframes myfirst{/*动画关键字*/
+               from{opacity:0;
+                   color:white;
+                   font-size:0px;}/*动态里面的属性,background-color:red;*/
+               to{opacity:1;
+                  color:black;
+                  font-size:50px;
+                 }
+              }
+      h1,div>p,p0{
+         animation:myfirst 6s infinite;
+         text-align:center;
+         font-size:50px;
+         font-family:"宋体";
+         font-weight:bold;
+         }
+       .d1{
+            font-size:30px;
+           }
+        .p0{
+            text-align:center;
+            font-size:30px;
+            color:rgba(230,0,230,0.5);
+        }
+    </style>
+</head>
+<body>
+<style>
+    .p1{
+      font-size:40px;
+      color:red;
+      font-style:italic;
+      font-weight:bold;
+      font-family:"楷体";
+      text-align:center;
+      text-indent:100px;
+      text-shadow:5px 10px 2px blue;
+
+      }
+
+
+</style>
+<p class="p1">欢迎您的到来</p>
+<input type="button" value="点我有惊喜" onclick="alert('讨厌，点我干嘛'),
+alert('还点我干什么'),alert('别点我了，我给你跪下了'),alert('你高兴你就点吧，我溜了')"/>
+<br/>
+<hr size="3" color="red" />
+<br/>
+<h1>静夜思</h1>
+<br/>
+<p class="p0">李白</p>
+<div class="d1">
+<p>床前明月光,</p>
+<p>疑是地上霜。</p>
+<p>举头望明月，</p>
+<p>低头思故乡。</p>
+</div>
+</body>
+</html>
+

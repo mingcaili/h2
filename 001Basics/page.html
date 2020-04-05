@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    page{
+            font-size:180px;
+            width:100%;
+            height:100%;
+            position:absolute;
+            margin:10px;
+            padding-top:30%;
+            padding-left:30%;
+            }
+    #spring{
+            background-color:lightgreen;
+            animation:sp 10s infinite;
+            }
+    #summer{
+            background-color:red;
+             animation:su 10s infinite;
+            }
+    #autumn{
+            background-color:yellow;
+             animation:au 10s infinite;
+            }
+    #winter{
+            background-color:black;
+            color:white;
+            animation:wi 10s infinite;
+            }
+/*只显示一个季节*/
+    @keyframes sp{
+                      0%{opacity:0}
+                      20%{opacity:100}
+                      40%{opacity:0}
+                      100%{opacity:0}
+                      }
+
+    @keyframes su{
+                      0%{opacity:0}
+                      20%{opacity:0}
+                      40%{opacity:100}
+                      60%{opacity:0}
+                      100%{opacity:0}
+                      }
+    @keyframes au{
+                      0%{opacity:0}
+                      40%{opacity:0}
+                      60%{opacity:100}
+                      80%{opacity:0}
+                      100%{opacity:0}
+                      }
+
+    @keyframes wi{
+                      0%{opacity:0}
+                      60%{opacity:0}
+                      80%{opacity:100}
+                      100%{opacity:0}
+                      }
+
+    </style>
+
+<script>
+
+   /* function taolu(n){
+                    for(k=0;k<n;k++)
+                        alert("hello"+"_"+k);//弹出消息框
+
+                   }
+
+    n=prompt("提示的次数");//接受用户输入数据
+    taolu(n);*/
+    console.info(123);//控制台输出
+     var n=0;
+    do{
+    pw=prompt("请输入密码:");
+       n+=1;
+    if(pw==123){
+       document.write("我是你刚刚输入的密码:\n"+pw);
+       alert("welcome you!");
+       break;
+       }
+     if(n==4){
+        alert("请稍后再输入");
+        break;
+        }
+     }while(n<4);
+
+
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>四季交替</title>
+</head>
+<body>
+<page id="spring">春</page>
+<page id="summer">夏</page>
+<page id="autumn">秋</page>
+<page id="winter">冬</page>
+
+</body>
+</html>

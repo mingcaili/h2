@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<style>
+    p{
+      font-size:40px;
+      color:red;
+      font-style:italic;
+      font-weight:bold;
+      font-family:"楷体";
+      text-align:center;
+      text-indent:100px;
+      text-shadow:5px 10px 2px blue;
+
+      }
+
+</style>
+<p>欢迎您的到来</p>
+<a id="link" href="#">切换图片</a>
+<br/>
+<div class="box" id="box">
+    <div class="small">
+        <img id="img" src="images/0.png" alt="我是图片" width="100px" height="100px"/>
+        <div class="mask"></div>
+    </div>
+
+    <div class="big">
+        <img id="img1" src="images/0.png" alt="我是图片" width="300px" height="300px"/>
+    </div>
+</div>
+<style>
+/*设置位置*/
+    .mask{
+        background-color:rgba(255,0,5,0.8);
+        height:100px;
+        width:100px;
+
+        }
+    .mask,#img{
+        position:absolute;
+        margin-top:0px;
+        }
+    .big{
+        position:absolute;
+        margin-left:120px;
+        }
+
+
+</style>
+<script>
+    //切换图片
+    //1.获取超链接
+    var link=document.getElementById("link");
+    var i=0;
+    //给超链接注册点击事件
+    link.onclick=function(){
+                            var next=document.getElementById("img");//获取图片Id
+                            var next1=document.getElementById("img1");
+                            i+=1;
+                            next.src="images/"+i+".png";//重新给src赋值
+                            next1.src="images/"+i+".png";
+                             if(i===384){
+                                   i=0;
+                                   }
+                              console.info("共384张图片:"+
+                                            "第"+i+"图片");
+                          return false;
+                          }
+
+</script>
+<script>
+    //创建对象第三种方式
+    function stu(name,age,subject,score){
+            var o = new Object();
+            o.name=name;
+            o.age=age;
+            o.subject=subject;
+            o.score=score;
+            return o;
+    }
+
+    var s1=stu("zs",12,"语文",99);
+    var s2=stu("ls",14,"数学",98);
+    //还有第四种
+</script>
+<script>
+    //图片放大镜
+    //0.获取需要的元素
+    var box=document.getElementById("box");
+    //小盒子
+    var smallbox=box.children[0];
+    //大盒子
+    var bigbox=box.children[1];
+    //获取小图片
+    var smallimg=smallbox.children[0];
+    //获取遮盖层
+    var mask=smallbox.children[1];
+    //获取大图片
+    var bigimg=bigbox.children[0]
+    //1.鼠标经过的地方放大图片，过后消失
+    smallbox.onmouseover=function(){
+    mask.style.display="block";
+
+
+    bigbox.style.display="block";
+    }
+     smallbox.onmouseout=function(){
+    mask.style.display="none";
+    bigbox.style.display="none";
+    }
+
+//鼠标移动时遮盖层跟着移动
+smallbox.onmousemove=function(e){
+    e=e||evnet;
+    //获取鼠标在小盒子中的坐标
+    var x=getPage(e).pageX-box.offsetleft;
+    var y=getPage(e).pageY-box.offsetTop;
+
+    //让鼠标在mask的中点
+    x-=mask.offsetwidth/2;
+    y-=maskoffsetHeight/2;
+
+    mask.style.left=x+"px";
+    mask.style.top=y+"px";
+    }
+</script>
+
+<br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/>
+
+<h1>距开学还有:</h1>
+
+<div class="time-item">
+    <span><span id="day">00</span></span>
+    <strong><span id="hour">00</span></strong>
+    <strong><span id="minute">00</span></strong>
+    <strong><span id="second">00</span></strong>
+
+</div>
+<script>
+    //写一个函数计算时间差
+    function getInterval(star,end){
+        var interval=end-star;//单位毫秒
+         //转换成秒
+        interval/=1000;
+
+        var day,hour,minute,second;
+        day=math.floor(interval/60/60/24);
+        hour=math.floor(interval/60/60%24);
+        minute=math.floor(interval/60%60);
+        second=mathn.floor(interval%60);
+
+        return{
+            day:day,
+            hour:hour,
+            minute:minute,
+            second:second
+        }
+    }
+    var spanday=document.getElementById("day");
+    var spanhour=document.getElementById("hour");
+    var spanminute=document.getElementById("minute");
+    var spansecond=document.getElementById("second");
+
+
+
+
+
+    vare end=new Date("2020-2-19");
+
+
+    setInterval(function(){
+    //获取当前时间
+    var star=new Date();
+    //获取时间差
+    var obj=getInterval(start,end);
+    spanday.innerText=obj.day;
+    spanhour.innerText=obj.hour;
+    spanminute.innerText=obj.minute;
+    spansecond.innerText=obj.second;
+
+    },1000);
+</script>
+</body>
+</html>
+
+

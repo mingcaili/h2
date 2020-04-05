@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>泡泡</title>
+</head>
+<body>
+<canvas id="bb"></canvas>
+</body>
+
+</html>
+<script>
+    //1.让canvas的大小和浏览器窗口一样大
+    var canvas=document.getElementById("bb");
+    var w=window.innerWidth;//获取窗口的宽、高
+    var h=window.innerHeight;
+    canvas.width=w;//将anvas的宽高赋值
+    canvas.height=h;
+
+    window.onresize=function(){//当窗口大小发生变换时
+             w=window.innerWidth;//获取窗口的宽、高
+             h=window.innerHeight;
+             canvas.width=w;//将anvas的宽高赋值
+             canvas.height=h;
+             }
+
+    //canvas绘制圆
+    var canc=canvas.getContext("2d");
+   /* canc.strokeStyle="red";//边界颜色
+    canc.fillStyle="red";//填充颜色
+    canc.arc(100,100,50,0,2*Math.PI);//画圆
+    canc.fill();
+    canc.stroke();*/
+
+
+    var colorArry=["#e08031","#c7ceb2","#177475","#ob6e48","#044d22"];//小圆颜色
+    function Bubble(){};//泡泡的母亲
+    Bubble.prototype={//给泡泡定义属性和方法
+          init:function(){//属性
+                this.x=Math.random()*w;//小圆的圆心和半径,圆心可以在浏览器的任意位置
+                this.y=Math.random()*h;
+                this.r=Math.random()*5;
+                this.D=20;
+                this.color=colorArry[Math.floor(Math.random()*5)];//颜色
+                this.xr=(Math.random()-0.5)*2;//产生-1-1的随机数
+                this.yr=(Math.random()-0.5)*2;
+                },
+
+          draw:function(){//绘制小圆
+                canc.beginPath();//提笔重画
+                canc.strokeStyle=this.color;//边界颜色
+                canc.fillStyle=this.color;//填充颜色
+                canc.arc(this.x,this.y,this.r,0,2*Math.PI);//画圆
+                canc.fill();
+                canc.stroke();
+                },
+
+           update:function(){//更新位置
+                    this.x+=this.xr;
+                    this.y+=this.yr;
+                    if(this.x+this.r>w||this.x-this.r<0){//碰到边界时返回
+                        this.xr=-this.xr
+                        }
+                    if(this.y+this.r>h||this.y-this.r<0){
+                        this.yr=-this.yr;
+                    }
+                    //在距离鼠标50像素时变大
+                    this.xD=Math.abs(this.x-positionx);
+                    this.yD=Math.abs(this.y-positiony);
+                    if(this.xD<this.D&&this.yD<this.D){
+                    this.r+=1;
+                    }
+                    else if(this.r>4&&this.xD>this.D&&this.yD>this.D){
+                    this.r-=1;
+                    }
+                    this.draw();
+            }
+
+            }
+          var bbarry=[];//定义数组
+          function create(){
+            var bubble=new Bubble();//生成一个泡泡
+            bubble.init();
+            bubble.draw();
+            bbarry.push(bubble);//将小圆放在数组中
+            }
+
+          for(var i=0;i<1000;i++){
+                    create();
+                 }//将画的圆放在数组中
+
+         setInterval(function(){
+                canc.clearRect(0,0,w,h);//清屏
+                for(var b of bbarry){
+                   b.update();
+                    }
+           },1000/60);
+
+    var positionx,positiony;
+    canvas.onmousemove=function(){
+         var ev=ev||window.event;
+         positionx=ev.clientX;
+         positiony=ev.clientY;
+         }
+
+
+
+
+
+</script>

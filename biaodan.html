@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>健康打卡</title>
+</head>
+<body>
+<form action="#" method="get">
+    <table align="center">
+        <h5>欢迎您,您<span id="pcard" style="color:red;">未打卡.</span></h5>
+        <p>当前所在区域:</p>
+        <select id="quyu">
+            <option value="">其他地区</option>
+            <option value="">湖北</option>
+            <option value="">返校途中</option>
+            <option value="">上海</option>
+        </select>
+        <p>有无接触历史:</p>
+        <select id="jiechu">
+            <option value="">有</option>
+            <option value="">无</option>
+            <option value="">目前扔在湖北</option>
+        </select>
+        <br>
+        健康状况：<input type="radio" name="health">良好
+                 <input type="radio" name="health">疑似
+                 <input type="radio" name="health">确诊
+                    <br> <br>
+                 <input type="checkbox" name="isStyle">是否留校
+        <br><br>
+        <button id="sm" type="text">打卡</button>
+    </table>
+</form>
+</body>
+
+<style>
+    #sm,#quyu{
+        height:30px;
+        width:300px;
+        color:white;
+        font-size:20px;
+        background-color:blue;
+        }
+
+     #quyu,#jiechu{
+        height:30px;
+        width:300px;
+        color:black;
+        font-size:20px;
+        background-color:grey;
+        }
+</style>
+</html>
+<script>
+    sm.onclick=function(){
+    var pd;
+        pd=document.getElementById("pcard");
+        pd.style="color:green;";
+        pd.innerHTML="已打卡"
+
+    }
+
+</script>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+
+</head>
+<body>
+ <form id="lg">
+            <p>账号：<input type="text" id="user" autofocus="autofocus"/></p>
+
+            <p>密码：<input type="password" id="psd" autofocus="autofocus"/>
+            <input id="trf" type="button" value="密码可见"></p>
+            <p>验证码：<input type="text" id="code" autofocus="autofocus"/>
+            <span id="vc" style="background-color:red;font-size:30px;"></span></p>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input id="ensure" type="button" value="确定">
+            <button id="sm" type="submit">登录</button>
+    </form>
+
+</body>
+</html>
+<script>
+//1转变密码是否可见
+var trf=document.getElementById("trf");
+var psd=document.getElementById("psd");
+    trf.onclick=function(){
+         if(psd.type=="password")
+            psd.type="text"
+         else
+            psd.type="password";
+    }
+//2生成验证码
+function createCode(){
+var cl=4;//验证码长度
+var carry=[1,2,3,4,5,6,"Q","t","g","A"]
+var cstr="";
+var vc=document.getElementById("vc")
+for(var k=0;k<cl;k++)
+    cstr=cstr+String(carry[Math.floor(Math.random()*9)]);
+vc.innerHTML=cstr;
+return cstr;
+}
+st=createCode();
+
+//3验证输入
+
+var account=["li","wang","zhang"];
+var pd=[123,456,789];
+var i;
+var user=document.getElementById("user");
+var code=document.getElementById("code")
+
+console.log(st,code.value);
+ensure.onclick=function(){
+console.log(st,code.value);
+    for(i=0;i<3;i++){
+        if(user.value==account[i]&&psd.value==pd[i]&&String(code.value)==st){
+             lg.action="http://localhost:63342/H33/biaodan.html?_ijt=9o97juchtu0ksdkcdcnrasfo2n";
+              break;
+        }
+             else if(user.value==account[i]&&psd.value==pd[i]&&code.value!=st){
+                i=i-1;
+                alert("验证码错误!");
+                break;
+                }
+
+    }
+    if(i>=3)
+    alert("账号或密码错误!");
+}
+
+
+
+
+
+
+</script>
